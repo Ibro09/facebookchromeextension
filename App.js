@@ -7,7 +7,7 @@ const socketIo = require("socket.io");
 const puppeteer = require("puppeteer-extra");
 const fs = require("fs");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
-const { type } = require("os");
+require('dotenv').config()
 puppeteer.use(StealthPlugin());
 const app = express();
 const server = http.createServer(app);
@@ -19,18 +19,16 @@ const io = require("socket.io")(server, {
   },
 });
 
+const stripe = require("stripe")(process.env.STRIPE);
 
-const stripe = require("stripe")(
-  "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"
-);
+
 
 // Middleware
 app.use(cors()); 
 app.use(bodyParser.json());
 
 // MongoDB Connection
-const mongoURI =
-  "mongodb+srv://ibro09:Abdulsalam24@backendproject.d9sjdug.mongodb.net/?retryWrites=true&w=majority&appName=backendproject"; // Replace with your MongoDB URI
+const mongoURI = process.env.MONGODB_URI; // Replace with your MongoDB URI
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
@@ -41,7 +39,7 @@ const DataSchema = new mongoose.Schema({
   userId: String,
   premium: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
-});
+}); 
 
 const DataModel = mongoose.model("Data", DataSchema);
 
