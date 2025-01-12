@@ -13,7 +13,10 @@ const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://facebookextension.vercel.app", // Match the client's origin
+    origin: [
+      "https://facebookextension.vercel.app", // Your hosted client app
+      "chrome-extension://kpajpkajnfgohgbkbhkpmoembnlepheb", // Replace with your extension ID
+    ],
     methods: ["GET", "POST"],
     credentials: true, // Allow cookies or headers if needed
   },
