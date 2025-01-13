@@ -124,7 +124,6 @@ app.post("/api/keywords", async (req, res) => {
     // res.status(200).json({keyword,group})
     (async () => {
       const headfulBrowser = await puppeteer.launch({
-        executablePath: "./win64-131.0.6778.204/chrome-win64/chrome.exe",
         headless: false,
         userDataDir: "./user_data",
         args: [
