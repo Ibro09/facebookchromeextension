@@ -44,18 +44,18 @@ fs.readdir(path.resolve(__dirname, "../../../render/project/nodes"), (err, files
     return;
   }
 
-  console.log("Files in the parent parent directory:");
+  console.log("1 Files in the parent parent directory:");
   files.forEach((file) => {
     console.log(file);
   });
 });
-fs.readdir(path.resolve(__dirname, "../../../../../opt/render"), (err, files) => {
+fs.readdir(path.resolve(__dirname, "../../../../../opt/render.cache"), (err, files) => {
   if (err) {
     console.error("Error reading directory:", err);
     return;
   }
 
-  console.log("Files in the parent parent directory:");
+  console.log("2 Files in the parent parent directory:");
   files.forEach((file) => {
     console.log(file);
   });
@@ -71,7 +71,7 @@ fs.readdir(
       return;
     }
 
-    console.log("Files in the parent parent directory:");
+    console.log("3 Files in the parent parent directory:");
     files.forEach((file) => {
       console.log(file);
     });
