@@ -63,7 +63,7 @@ fs.readdir(path.resolve(__dirname, "../../../../../opt/render"), (err, files) =>
 fs.readdir(
   path.resolve(
     __dirname,
-    "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204"
+    "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/.cache"
   ),
   (err, files) => {
     if (err) {
@@ -77,6 +77,7 @@ fs.readdir(
     });
   }
 );
+console.log("Using Chrome executable:", puppeteer.executablePath());
 
 
 // Replace with the directory you want to list
@@ -186,6 +187,7 @@ app.post("/api/keywords", async (req, res) => {
     // res.status(200).json({keyword,group})
     (async () => {
       const headfulBrowser = await puppeteer.launch({
+        executablePath: "../../../../../opt/render/chrome-linux64/chrome", // Path to system Chrome
         headless: false,
         userDataDir: "./user_data",
         args: [
