@@ -63,7 +63,7 @@ const parentDir = path.resolve(__dirname, ".");
 fs.readdir(
   path.resolve(
     __dirname,
-    "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64/chrome"
+    "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64"
   ),
   (err, files) => {
     if (err) {
