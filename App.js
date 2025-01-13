@@ -120,22 +120,18 @@ app.get("/api/data/user", async (req, res) => {
 app.post("/api/keywords", async (req, res) => {
   const { keyword, group } = req.body;
   console.log(keyword, group);
-  const cachePath = require("path").resolve(
-    require("os").homedir(),
-    ".cache",
-    "puppeteer"
-  );
-  console.log("Puppeteer Cache Path:", cachePath);
-
-  
   try {
     // res.status(200).json({keyword,group})
     (async () => {
       const headfulBrowser = await puppeteer.launch({
+        executablePath:
+          "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64/chrome/chrome.exe",
         headless: false,
         userDataDir: "./user_data",
         args: [
-          '--no-sandbox', '--disable-setuid-sandbox','--disable-dev-shm-usage',
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--disable-dev-shm-usage",
         ], // Required for some environments
         ignoreDefaultArgs: ["--disable-extensions"],
       });
