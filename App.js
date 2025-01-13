@@ -123,7 +123,7 @@ app.post("/api/keywords", async (req, res) => {
  const { keyword, group } = req.body;
     console.log(keyword, group); 
     try {
-      req.status(200).json({keyword,group})
+      res.status(200).json({keyword,group})
     // (async () => {
     //   const headfulBrowser = await puppeteer.launch({
     //     headless: false,
