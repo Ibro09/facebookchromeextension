@@ -44,7 +44,6 @@ function listFilesAndFolders(dirPath) {
 }
 
 // Replace with the directory you want to list
-listFilesAndFolders(cachePath);
 
 // Print the default cache path
 const cachePath = require('path').resolve(require('os').homedir(), '.cache', 'puppeteer');
