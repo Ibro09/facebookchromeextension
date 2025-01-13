@@ -123,153 +123,152 @@ app.post("/api/keywords", async (req, res) => {
  const { keyword, group } = req.body;
     console.log(keyword, group); 
     try {
-    
+      req.status(200).json({keyword,group})
+    // (async () => {
+    //   const headfulBrowser = await puppeteer.launch({
+    //     headless: false,
+    //     userDataDir: "./user_data",
+    //   });
+    //   const headful = await headfulBrowser.newPage();
 
-    (async () => {
-      const headfulBrowser = await puppeteer.launch({
-        headless: false,
-        userDataDir: "./user_data",
-      });
-      const headful = await headfulBrowser.newPage();
+    //   const links = [];
+    //   try {
+    //     // Navigate to the Facebook group
+    //     await headful.goto(group, {
+    //       waitUntil: "networkidle2",
+    //       timeout: 60000,
+    //     });
 
-      const links = [];
-      try {
-        // Navigate to the Facebook group
-        await headful.goto(group, {
-          waitUntil: "networkidle2",
-          timeout: 60000,
-        });
+    //     // Wait for the specific class to load
+    //     await headful.waitForSelector(
+    //       "div.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z",
+    //       {
+    //         timeout: 60000,
+    //       }
+    //     );
 
-        // Wait for the specific class to load
-        await headful.waitForSelector(
-          "div.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z",
-          {
-            timeout: 60000,
-          }
-        );
+    //     const keywords = ["posts"];
+    //     const results = [];
 
-        const keywords = ["posts"];
-        const results = [];
+    //     for (const word of keyword) {
+    //       const divContents = await headful.evaluate(async (word) => {
+    //         const results = [];
+    //         const links = [];
+    //         const divs = Array.from(
+    //           document.querySelectorAll(
+    //             "div.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z"
+    //           )
+    //         );
 
-        for (const word of keyword) {
-          const divContents = await headful.evaluate(async (word) => {
-            const results = [];
-            const links = [];
-            const divs = Array.from(
-              document.querySelectorAll(
-                "div.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z"
-              )
-            );
+    //         for (const div of divs) {
+    //           if (div.innerText.includes(word)) {
+    //             const span = Array.from(
+    //               div.querySelectorAll(
+    //                 "span.x193iq5w.xeuugli.x13faqbe.x1vvkbs.x1xmvt09.x1lliihq.x1s928wv.xhkezso.x1gmr53x.x1cpjm7i.x1fgarty.x1943h6x.xudqn12.x3x7a5m.x6prxxf.xvq8zen.x1s688f.xi81zsa"
+    //               )
+    //             ).find((span) => span.innerText.toLowerCase().includes("copy"));
 
-            for (const div of divs) {
-              if (div.innerText.includes(word)) {
-                const span = Array.from(
-                  div.querySelectorAll(
-                    "span.x193iq5w.xeuugli.x13faqbe.x1vvkbs.x1xmvt09.x1lliihq.x1s928wv.xhkezso.x1gmr53x.x1cpjm7i.x1fgarty.x1943h6x.xudqn12.x3x7a5m.x6prxxf.xvq8zen.x1s688f.xi81zsa"
-                  )
-                ).find((span) => span.innerText.toLowerCase().includes("copy"));
+    //             if (span) {
+    //               span.click(); // Click the span
+    //               results.push({ text: span.innerText, clicked: true });
+    //               //  const copiedText =navigator.clipboard.readText()
+    //               //  links.push(copiedText)
+    //             }
+    //           }
+    //         }
 
-                if (span) {
-                  span.click(); // Click the span
-                  results.push({ text: span.innerText, clicked: true });
-                  //  const copiedText =navigator.clipboard.readText()
-                  //  links.push(copiedText)
-                }
-              }
-            }
+    //         return results;
+    //       }, word);
 
-            return results;
-          }, word);
+    //       results.push(...divContents);
 
-          results.push(...divContents);
+    //       // Ensure clipboard content for all matches
+    //       for (const content of divContents) {
+    //         if (content.clicked) {
+    //           const copiedText = await headful.evaluate(() =>
+    //             navigator.clipboard.readText()
+    //           );
+    //           links.push(copiedText);
+    //         }
+    //       }
+    //     }
+    //     const uniqueList = [...new Set(links)];
+    //     console.log("Final Results:", results, uniqueList);
+    //     res.status(200).json({ links: uniqueList });
+    //   } catch (error) {
+    //     console.error("Error:", error);
+    //     res.status(500).json({ message: "Error saving data", error });
+    //   } finally {
+    //     setInterval(async () => {
+    //       try {
+    //         await headful.bringToFront(); // Ensure the page is in focus.
+    //         await headful.evaluate(() => {
+    //           document.body.focus();
+    //         });
+    //         await headful.reload({ waitUntil: "networkidle2" });
+    //         // Wait for the specific class to load
+    //         await headful.waitForSelector(
+    //           "div.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z",
+    //           {
+    //             timeout: 60000,
+    //           }
+    //         );
 
-          // Ensure clipboard content for all matches
-          for (const content of divContents) {
-            if (content.clicked) {
-              const copiedText = await headful.evaluate(() =>
-                navigator.clipboard.readText()
-              );
-              links.push(copiedText);
-            }
-          }
-        }
-        const uniqueList = [...new Set(links)];
-        console.log("Final Results:", results, uniqueList);
-        res.status(200).json({ links: uniqueList });
-      } catch (error) {
-        console.error("Error:", error);
-        res.status(500).json({ message: "Error saving data", error });
-      } finally {
-        setInterval(async () => {
-          try {
-            await headful.bringToFront(); // Ensure the page is in focus.
-            await headful.evaluate(() => {
-              document.body.focus();
-            });
-            await headful.reload({ waitUntil: "networkidle2" });
-            // Wait for the specific class to load
-            await headful.waitForSelector(
-              "div.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z",
-              {
-                timeout: 60000,
-              }
-            );
+    //         const keywords = ["posts"]; 
+    //         const results = [];
 
-            const keywords = ["posts"]; 
-            const results = [];
+    //         for (const word of keyword) {
+    //           const divContents = await headful.evaluate(async (word) => {
+    //             const results = [];
+    //             const links = [];
+    //             const divs = Array.from(
+    //               document.querySelectorAll(
+    //                 "div.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z"
+    //               )
+    //             );
 
-            for (const word of keyword) {
-              const divContents = await headful.evaluate(async (word) => {
-                const results = [];
-                const links = [];
-                const divs = Array.from(
-                  document.querySelectorAll(
-                    "div.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z"
-                  )
-                );
+    //             for (const div of divs) {
+    //               if (div.innerText.includes(word)) {
+    //                 const span = Array.from(
+    //                   div.querySelectorAll(
+    //                     "span.x193iq5w.xeuugli.x13faqbe.x1vvkbs.x1xmvt09.x1lliihq.x1s928wv.xhkezso.x1gmr53x.x1cpjm7i.x1fgarty.x1943h6x.xudqn12.x3x7a5m.x6prxxf.xvq8zen.x1s688f.xi81zsa"
+    //                   )
+    //                 ).find((span) =>
+    //                   span.innerText.toLowerCase().includes("copy")
+    //                 );
 
-                for (const div of divs) {
-                  if (div.innerText.includes(word)) {
-                    const span = Array.from(
-                      div.querySelectorAll(
-                        "span.x193iq5w.xeuugli.x13faqbe.x1vvkbs.x1xmvt09.x1lliihq.x1s928wv.xhkezso.x1gmr53x.x1cpjm7i.x1fgarty.x1943h6x.xudqn12.x3x7a5m.x6prxxf.xvq8zen.x1s688f.xi81zsa"
-                      )
-                    ).find((span) =>
-                      span.innerText.toLowerCase().includes("copy")
-                    );
+    //                 if (span) {
+    //                   span.click(); // Click the span
+    //                   results.push({ text: span.innerText, clicked: true });
+    //                 }
+    //               }
+    //             }
 
-                    if (span) {
-                      span.click(); // Click the span
-                      results.push({ text: span.innerText, clicked: true });
-                    }
-                  }
-                }
+    //             return results;
+    //           }, word);
 
-                return results;
-              }, word);
+    //           results.push(...divContents);
 
-              results.push(...divContents);
-
-              // Ensure clipboard content for all matches
-              for (const content of divContents) {
-                if (content.clicked) {
-                  const copiedText = await headful.evaluate(() =>
-                    navigator.clipboard.readText()
-                  );
-                  links.push(copiedText);
-                }
-              }
-            }
-            const uniqueList = [...new Set(links)];
-            console.log("Final Results:", results, uniqueList);
-            io.emit("results", { uniqueList });
-          } catch (error) {
-            console.log(error);
-            await headful.close();
-          }
-        }, 60000);
-      }
-    })();
+    //           // Ensure clipboard content for all matches
+    //           for (const content of divContents) {
+    //             if (content.clicked) {
+    //               const copiedText = await headful.evaluate(() =>
+    //                 navigator.clipboard.readText()
+    //               );
+    //               links.push(copiedText);
+    //             }
+    //           }
+    //         }
+    //         const uniqueList = [...new Set(links)];
+    //         console.log("Final Results:", results, uniqueList);
+    //         io.emit("results", { uniqueList });
+    //       } catch (error) {
+    //         console.log(error);
+    //         await headful.close();
+    //       }
+    //     }, 60000);
+    //   }
+    // })();
   } catch (error) {
     res.status(500).json({ message: "Error saving data", error });
   }
@@ -305,7 +304,7 @@ app.post("/create-checkout-session", async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: `https://stripe-payment-main.vercel.app/success?id={userId}`, // Redirect after successful payment
+      success_url: `https://stripe-payment-main.vercel.app/success?id=${userId}`, // Redirect after successful payment
       cancel_url: "https://stripe-payment-main.vercel.app/cancelled", // Redirect after canceled payment
     });
 
