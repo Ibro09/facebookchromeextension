@@ -60,6 +60,23 @@ fs.readdir(path.resolve(__dirname, "../../../../../opt/render"), (err, files) =>
     console.log(file);
   });
 });
+fs.readdir(
+  path.resolve(
+    __dirname,
+    "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204"
+  ),
+  (err, files) => {
+    if (err) {
+      console.error("Error reading directory:", err);
+      return;
+    }
+
+    console.log("Files in the parent parent directory:");
+    files.forEach((file) => {
+      console.log(file);
+    });
+  }
+);
 
 
 // Replace with the directory you want to list
