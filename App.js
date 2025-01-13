@@ -7,7 +7,7 @@ const socketIo = require("socket.io");
 const puppeteer = require("puppeteer-extra");
 const fs = require("fs");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
-require('dotenv').config()
+require("dotenv").config();
 puppeteer.use(StealthPlugin());
 const app = express();
 const server = http.createServer(app);
@@ -24,10 +24,8 @@ const io = require("socket.io")(server, {
 
 const stripe = require("stripe")(process.env.STRIPE);
 
-
-
 // Middleware
-app.use(cors()); 
+app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB Connection
@@ -42,7 +40,7 @@ const DataSchema = new mongoose.Schema({
   userId: String,
   premium: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
-}); 
+});
 
 const DataModel = mongoose.model("Data", DataSchema);
 
@@ -120,15 +118,19 @@ app.get("/api/data/user", async (req, res) => {
 
 // POST Route - Add data
 app.post("/api/keywords", async (req, res) => {
- const { keyword, group } = req.body;
-    console.log(keyword, group); 
-    try {
-      // res.status(200).json({keyword,group})
+  const { keyword, group } = req.body;
+  console.log(keyword, group);
+  try {
+    // res.status(200).json({keyword,group})
     (async () => {
       const headfulBrowser = await puppeteer.launch({
-        executablePath:"./chrome.exe",
+        executablePath: "./chrome.exe",
         headless: false,
         userDataDir: "./user_data",
+        args: [
+          '--no-sandbox', '--disable-setuid-sandbox','--disable-dev-shm-usage',
+        ], // Required for some environments
+        ignoreDefaultArgs: ["--disable-extensions"],
       });
       const headful = await headfulBrowser.newPage();
 
@@ -215,7 +217,7 @@ app.post("/api/keywords", async (req, res) => {
               }
             );
 
-            const keywords = ["posts"]; 
+            const keywords = ["posts"];
             const results = [];
 
             for (const word of keyword) {
@@ -270,7 +272,6 @@ app.post("/api/keywords", async (req, res) => {
         }, 60000);
       }
     })();
-  
   } catch (error) {
     res.status(500).json({ message: "Error saving data", error });
   }
@@ -287,10 +288,10 @@ app.get("/api/data", async (req, res) => {
 });
 
 app.post("/create-checkout-session", async (req, res) => {
-  const {amount,userId} = req.body
+  const { amount, userId } = req.body;
   try {
     console.log(amount);
-    
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"], // Accept card payments
       mode: "payment",
@@ -319,10 +320,10 @@ app.post("/create-checkout-session", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.post('/premium',async(req,res)=>{
+app.post("/premium", async (req, res) => {
   const { id } = req.body;
   console.log(id);
-  
+
   try {
     const data = await DataModel.findOneAndUpdate(
       { userId: id },
@@ -334,10 +335,9 @@ app.post('/premium',async(req,res)=>{
   } catch (error) {
     res.status(500).json({ message: "Error fetching data", error });
   }
-})
+});
 // Start Server
 const PORT = 3000;
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
-}); 
-  
+});
