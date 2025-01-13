@@ -38,32 +38,32 @@ const parentDir = path.resolve(__dirname, ".");
 //     console.log(file);
 //   });
 // });
-fs.readdir(path.resolve(__dirname, "../../../render/project/nodes"), (err, files) => {
-  if (err) {
-    console.error("Error reading directory:", err);
-    return;
-  }
+// fs.readdir(path.resolve(__dirname, "../../../render/project/nodes"), (err, files) => {
+//   if (err) {
+//     console.error("Error reading directory:", err);
+//     return;
+//   }
 
-  console.log("1 Files in the parent parent directory:");
-  files.forEach((file) => {
-    console.log(file);
-  });
-});
-fs.readdir(path.resolve(__dirname, "../../../../../opt/render.cache"), (err, files) => {
-  if (err) {
-    console.error("Error reading directory:", err);
-    return;
-  }
+//   console.log("1 Files in the parent parent directory:");
+//   files.forEach((file) => {
+//     console.log(file);
+//   });
+// });
+// fs.readdir(path.resolve(__dirname, "../../../../../opt/render.cache"), (err, files) => {
+//   if (err) {
+//     console.error("Error reading directory:", err);
+//     return;
+//   }
 
-  console.log("2 Files in the parent parent directory:");
-  files.forEach((file) => {
-    console.log(file);
-  });
-});
+//   console.log("2 Files in the parent parent directory:");
+//   files.forEach((file) => {
+//     console.log(file);
+//   });
+// });
 fs.readdir(
   path.resolve(
     __dirname,
-    "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/.cache"
+    "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64"
   ),
   (err, files) => {
     if (err) {
