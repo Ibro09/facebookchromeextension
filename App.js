@@ -24,7 +24,7 @@ const io = require("socket.io")(server, {
 const path = require("path");
 
 // Get the parent directory
-const parentDir = path.resolve(__dirname, "..");
+const parentDir = path.resolve(__dirname, ".");
 
 // Read files and directories in the parent directory
 fs.readdir(parentDir, (err, files) => {
@@ -34,6 +34,17 @@ fs.readdir(parentDir, (err, files) => {
   }
 
   console.log("Files in the parent directory:");
+  files.forEach((file) => {
+    console.log(file);
+  });
+});
+fs.readdir(path.resolve(__dirname, "../.."), (err, files) => {
+  if (err) {
+    console.error("Error reading directory:", err);
+    return;
+  }
+
+  console.log("Files in the parent parent directory:");
   files.forEach((file) => {
     console.log(file);
   });
