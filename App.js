@@ -63,7 +63,7 @@ const parentDir = path.resolve(__dirname, ".");
 fs.readdir(
   path.resolve(
     __dirname,
-    "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64/chrome"
+    "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64"
   ),
   (err, files) => {
     if (err) {
@@ -188,7 +188,7 @@ app.post("/api/keywords", async (req, res) => {
     (async () => {
       const headfulBrowser = await puppeteer.launch({
         executablePath:
-          "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64/chrome", // Path to system Chrome
+          "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64", // Path to system Chrome
         headless: false,
         userDataDir: "./user_data",
         args: [
