@@ -21,7 +21,6 @@ const io = require("socket.io")(server, {
     credentials: true, // Allow cookies or headers if needed
   },
 });
-const fs = require('fs');
 const path = require('path');
 
 function listFilesAndFolders(dirPath) {
