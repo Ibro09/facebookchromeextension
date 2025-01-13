@@ -21,7 +21,35 @@ const io = require("socket.io")(server, {
     credentials: true, // Allow cookies or headers if needed
   },
 });
+const fs = require('fs');
+const path = require('path');
 
+function listFilesAndFolders(dirPath) {
+  fs.readdir(dirPath, { withFileTypes: true }, (err, files) => {
+    if (err) {
+      console.error('Error reading directory:', err);
+      return;
+    }
+
+    files.forEach((file) => {
+      const fullPath = path.join(dirPath, file.name);
+      if (file.isDirectory()) {
+        console.log('Directory:', fullPath);
+        // Recursively call the function for subfolders
+        listFilesAndFolders(fullPath);
+      } else {
+        console.log('File:', fullPath);
+      }
+    });
+  });
+}
+
+// Replace with the directory you want to list
+listFilesAndFolders(cachePath);
+
+// Print the default cache path
+const cachePath = require('path').resolve(require('os').homedir(), '.cache', 'puppeteer');
+console.log('Puppeteer Cache Path:', cachePath);
 const stripe = require("stripe")(process.env.STRIPE);
 
 // Middleware
