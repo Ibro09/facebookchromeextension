@@ -187,7 +187,8 @@ app.post("/api/keywords", async (req, res) => {
     // res.status(200).json({keyword,group})
     (async () => {
       const headfulBrowser = await puppeteer.launch({
-        executablePath: "../../../../../opt/render/chrome-linux64/chrome", // Path to system Chrome
+        executablePath:
+          "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64/chrome", // Path to system Chrome
         headless: false,
         userDataDir: "./user_data",
         args: [
