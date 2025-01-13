@@ -38,7 +38,7 @@ const parentDir = path.resolve(__dirname, ".");
 //     console.log(file);
 //   });
 // });
-fs.readdir(path.resolve(__dirname, "../../project"), (err, files) => {
+fs.readdir(path.resolve(__dirname, "../../.."), (err, files) => {
   if (err) {
     console.error("Error reading directory:", err);
     return;
