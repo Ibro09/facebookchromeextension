@@ -38,7 +38,18 @@ const parentDir = path.resolve(__dirname, ".");
 //     console.log(file);
 //   });
 // });
-fs.readdir(path.resolve(__dirname, "../../.."), (err, files) => {
+fs.readdir(path.resolve(__dirname, "../../../render"), (err, files) => {
+  if (err) {
+    console.error("Error reading directory:", err);
+    return;
+  }
+
+  console.log("Files in the parent parent directory:");
+  files.forEach((file) => {
+    console.log(file);
+  });
+});
+fs.readdir(path.resolve(__dirname, "../../../render/.cache"), (err, files) => {
   if (err) {
     console.error("Error reading directory:", err);
     return;
