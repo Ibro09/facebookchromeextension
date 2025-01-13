@@ -50,6 +50,7 @@ listFilesAndFolders(cachePath);
 const cachePath = require('path').resolve(require('os').homedir(), '.cache', 'puppeteer');
 console.log('Puppeteer Cache Path:', cachePath);
 const stripe = require("stripe")(process.env.STRIPE);
+listFilesAndFolders(cachePath);
 
 // Middleware
 app.use(cors());
