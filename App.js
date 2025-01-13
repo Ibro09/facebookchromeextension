@@ -27,18 +27,18 @@ const path = require("path");
 const parentDir = path.resolve(__dirname, ".");
 
 // Read files and directories in the parent directory
-fs.readdir(parentDir, (err, files) => {
-  if (err) {
-    console.error("Error reading directory:", err);
-    return;
-  }
+// fs.readdir(parentDir, (err, files) => {
+//   if (err) {
+//     console.error("Error reading directory:", err);
+//     return;
+//   }
 
-  console.log("Files in the parent directory:");
-  files.forEach((file) => {
-    console.log(file);
-  });
-});
-fs.readdir(path.resolve(__dirname, "../.."), (err, files) => {
+//   console.log("Files in the parent directory:");
+//   files.forEach((file) => {
+//     console.log(file);
+//   });
+// });
+fs.readdir(path.resolve(__dirname, "../../project"), (err, files) => {
   if (err) {
     console.error("Error reading directory:", err);
     return;
