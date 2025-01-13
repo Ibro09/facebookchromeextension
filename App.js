@@ -21,27 +21,24 @@ const io = require("socket.io")(server, {
     credentials: true, // Allow cookies or headers if needed
   },
 });
-const path = require('path');
+const path = require("path");
 
-function listFilesAndFolders(dirPath) {
-  fs.readdir(dirPath, { withFileTypes: true }, (err, files) => {
-    if (err) {
-      console.error('Error reading directory:', err);
-      return;
-    }
+// Get the parent directory
+const parentDir = path.resolve(__dirname, "..");
 
-    files.forEach((file) => {
-      const fullPath = path.join(dirPath, file.name);
-      if (file.isDirectory()) {
-        console.log('Directory:', fullPath);
-        // Recursively call the function for subfolders
-        listFilesAndFolders(fullPath);
-      } else {
-        console.log('File:', fullPath);
-      }
-    });
+// Read files and directories in the parent directory
+fs.readdir(parentDir, (err, files) => {
+  if (err) {
+    console.error("Error reading directory:", err);
+    return;
+  }
+
+  console.log("Files in the parent directory:");
+  files.forEach((file) => {
+    console.log(file);
   });
-}
+});
+
 
 // Replace with the directory you want to list
 
@@ -49,7 +46,6 @@ function listFilesAndFolders(dirPath) {
 const cachePath = require('path').resolve(require('os').homedir(), '.cache', 'puppeteer');
 console.log('Puppeteer Cache Path:', cachePath);
 const stripe = require("stripe")(process.env.STRIPE);
-listFilesAndFolders(cachePath);
 
 // Middleware
 app.use(cors());
@@ -151,8 +147,6 @@ app.post("/api/keywords", async (req, res) => {
     // res.status(200).json({keyword,group})
     (async () => {
       const headfulBrowser = await puppeteer.launch({
-        executablePath:
-          "../../.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64/chrome.exe",
         headless: false,
         userDataDir: "./user_data",
         args: [
