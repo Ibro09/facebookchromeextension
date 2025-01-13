@@ -38,7 +38,7 @@ const parentDir = path.resolve(__dirname, ".");
 //     console.log(file);
 //   });
 // });
-fs.readdir(path.resolve(__dirname, "../../../render"), (err, files) => {
+fs.readdir(path.resolve(__dirname, "../../../render/project"), (err, files) => {
   if (err) {
     console.error("Error reading directory:", err);
     return;
@@ -49,7 +49,7 @@ fs.readdir(path.resolve(__dirname, "../../../render"), (err, files) => {
     console.log(file);
   });
 });
-fs.readdir(path.resolve(__dirname, "../../../render/.cache"), (err, files) => {
+fs.readdir(path.resolve(__dirname, "../../../../../"), (err, files) => {
   if (err) {
     console.error("Error reading directory:", err);
     return;
