@@ -49,7 +49,7 @@ fs.readdir(path.resolve(__dirname, "../../../render/project"), (err, files) => {
     console.log(file);
   });
 });
-fs.readdir(path.resolve(__dirname, "../../../../../opt"), (err, files) => {
+fs.readdir(path.resolve(__dirname, "../../../../../opt/render"), (err, files) => {
   if (err) {
     console.error("Error reading directory:", err);
     return;
